@@ -169,7 +169,7 @@ acct_list = []
 ent_pairs = []
 csv_header = ['ENTITY A', 'ENTITY B', 'ENTITY A IER', 'ENTITY A IEP', 'ENTITY B IER', 'ENTITY B IEP']
 csv_data = []
-counter = 1
+counter = 0
 for from_entity in entity_list:
     for to_entity in entity_list:
         if from_entity != to_entity:
@@ -182,10 +182,6 @@ for from_entity in entity_list:
             if 'Due to entity {}'.format(from_entity) not in acct_list:
                 acct_list.append('Due to entity {}'.format(from_entity))
             if '{}/{}'.format(from_entity, to_entity) not in ent_pairs:
-                barStr = getProgressBar(counter, ENT_ADV2_SIMP)
-                print(barStr, end='', flush=True)
-                print('\b' * len(barStr), end='', flush=True)
-                counter += 1
                 ent_pairs.append('{}/{}'.format(from_entity, to_entity))
                 ent_pairs.append('{}/{}'.format(to_entity, from_entity))
                 csv_data.append(
@@ -198,4 +194,8 @@ for from_entity in entity_list:
                         'Due to entity {}'.format(from_entity),
                     ]
                 )
+                counter += 1
+                barStr = getProgressBar(counter, ENT_ADV2_SIMP)
+                print(barStr, end='', flush=True)
+                print('\b' * len(barStr), end='', flush=True)
 export_file()
