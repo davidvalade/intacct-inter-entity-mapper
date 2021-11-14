@@ -51,6 +51,8 @@ def import_file():
         with open('entitylist.txt', 'r') as f:
             entity_list = f.readlines()
             entity_list = [line.rstrip() for line in entity_list]
+            entity_list = list(set(entity_list))
+            entity_list.sort()
     except FileNotFoundError:
         print('Sorry, "entitylist.txt" not found.')
         print('Create that file and try again.')
