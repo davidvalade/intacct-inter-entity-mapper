@@ -8,6 +8,8 @@ Tags: Intacct, inter-entity"""
 import sys
 import csv
 
+BAR = chr(9608)  # Character 9608 is '█'
+
 print(
     r'''
     ___    ____       _    ___      __       ______          __  
@@ -56,6 +58,36 @@ def import_file():
     return entity_list
 
 
+def getProgressBar(progress, total, barWidth=40):
+    """Returns a string that represents a progress bar that has barWidth
+    bars and has progressed progress amount out of a total amount."""
+
+    progressBar = ''  # The progress bar will be a string value.
+    progressBar += '['  # Create the left end of the progress bar.
+
+    # Make sure that the amount of progress is between 0 and total:
+    if progress > total:
+        progress = total
+    if progress < 0:
+        progress = 0
+
+    # Calculate the number of "bars" to display:
+    numberOfBars = int((progress / total) * barWidth)
+
+    progressBar += BAR * numberOfBars  # Add the progress bar.
+    progressBar += ' ' * (barWidth - numberOfBars)  # Add empty space.
+    progressBar += ']'  # Add the right end of the progress bar.
+
+    # Calculate the percentage complete:
+    percentComplete = round(progress / total * 100, 1)
+    progressBar += ' ' + str(percentComplete) + '%'  # Add percentage.
+
+    # Add the numbers:
+    progressBar += ' ' + str(progress) + '/' + str(total)
+
+    return progressBar  # Return the progress bar string.
+
+
 while True:
     print('Enter number of entities:')
     entities = input('> ').upper()
@@ -89,7 +121,7 @@ For reference, with {0:,d} entities, you could have:
  - Advanced Basic, single Bal Sheet acct: {4:,d} accounts
  - Advanced Four, single Bal Sheet acct: {2:,d} accounts
  - Advanced Two, single Bal Sheet acct: {5:,d} accounts
- - Advanced Simpifed Four: {1:,d} accounts
+ - *** Advanced Simpifed Four: {1:,d} accounts
 
 We find that this last option ("Advanced Simplified Four") is the best.
 '''.format(
@@ -120,12 +152,12 @@ if choice == 1:
     while True:
         if len(entity_list) == entities:
             break
-        ent = input('Enter an entity ID (or "QUIT"): ')
-        if ent.upper == 'QUIT':
+        ent = input('Enter an entity ID (or "quit" to stop): ')
+        if ent.upper() == 'QUIT':
             sys.exit()
         if ent in entity_list:
             print('Sorry, that entity was entered already.')
-            print('As a reminder, the entities so far are:', ', '.join(entity_list))
+            print('As a reminder, the entities so far are:\n', ', '.join(entity_list))
             continue
         entity_list.append(ent)
 elif choice == 2:
@@ -137,6 +169,7 @@ acct_list = []
 ent_pairs = []
 csv_header = ['ENTITY A', 'ENTITY B', 'ENTITY A IER', 'ENTITY A IEP', 'ENTITY B IER', 'ENTITY B IEP']
 csv_data = []
+counter = 1
 for from_entity in entity_list:
     for to_entity in entity_list:
         if from_entity != to_entity:
@@ -149,6 +182,10 @@ for from_entity in entity_list:
             if 'Due to entity {}'.format(from_entity) not in acct_list:
                 acct_list.append('Due to entity {}'.format(from_entity))
             if '{}/{}'.format(from_entity, to_entity) not in ent_pairs:
+                barStr = getProgressBar(counter, ENT_ADV2_SIMP)
+                print(barStr, end='', flush=True)
+                print('\b' * len(barStr), end='', flush=True)
+                counter += 1
                 ent_pairs.append('{}/{}'.format(from_entity, to_entity))
                 ent_pairs.append('{}/{}'.format(to_entity, from_entity))
                 csv_data.append(
