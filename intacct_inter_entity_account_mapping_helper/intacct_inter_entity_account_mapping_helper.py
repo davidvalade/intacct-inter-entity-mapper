@@ -19,6 +19,7 @@ print(
 '''
 )
 
+
 def export_file():
     try:
         with open('iet_config_avt.csv', 'w', encoding='UTF8', newline='') as f:
@@ -38,10 +39,12 @@ def export_file():
         for acct in acct_list:
             f.write('{}\n'.format(acct))
 
+
 def import_file():
     print('Create a TXT file called "entitylist.txt" with one entity listed per line.')
     choice = input('Press enter to load or QUIT to stop: ').upper()
-    if choice == 'QUIT': sys.exit()
+    if choice == 'QUIT':
+        sys.exit()
     try:
         with open('entitylist.txt', 'r') as f:
             entity_list = f.readlines()
@@ -50,8 +53,9 @@ def import_file():
         print('Sorry, "entitylist.txt" not found.')
         print('Create that file and try again.')
         sys.exit()
-    return(entity_list)
-    
+    return entity_list
+
+
 while True:
     print('Enter number of entities:')
     entities = input('> ').upper()
@@ -98,7 +102,8 @@ print(
  - (1) key entity numbers
  - (2) import a list of entity IDs
  - (3) use a dummy list to edit manually later
-''')
+'''
+)
 
 while True:
     print('Pick a option listed (or "quit" to stop):')
@@ -113,9 +118,11 @@ choice = int(response)
 entity_list = []
 if choice == 1:
     while True:
-        if len(entity_list) == entities: break
+        if len(entity_list) == entities:
+            break
         ent = input('Enter an entity ID (or "QUIT"): ')
-        if ent.upper == 'QUIT': sys.exit()
+        if ent.upper == 'QUIT':
+            sys.exit()
         if ent in entity_list:
             print('Sorry, that entity was entered already.')
             print('As a reminder, the entities so far are:', ', '.join(entity_list))
@@ -140,10 +147,10 @@ for from_entity in entity_list:
             if 'Due from entity {}'.format(from_entity) not in acct_list:
                 acct_list.append('Due from entity {}'.format(from_entity))
             if 'Due to entity {}'.format(from_entity) not in acct_list:
-                acct_list.append('Due to entity {}'.format(from_entity))              
-            if '{}/{}'.format(from_entity, to_entity) not in ent_pairs :
+                acct_list.append('Due to entity {}'.format(from_entity))
+            if '{}/{}'.format(from_entity, to_entity) not in ent_pairs:
                 ent_pairs.append('{}/{}'.format(from_entity, to_entity))
-                ent_pairs.append('{}/{}'.format(to_entity, from_entity))  
+                ent_pairs.append('{}/{}'.format(to_entity, from_entity))
                 csv_data.append(
                     [
                         from_entity,
@@ -151,7 +158,7 @@ for from_entity in entity_list:
                         'Due from entity {}'.format(to_entity),
                         'Due to entity {}'.format(to_entity),
                         'Due from entity {}'.format(from_entity),
-                        'Due to entity {}'.format(from_entity)
+                        'Due to entity {}'.format(from_entity),
                     ]
                 )
 export_file()
