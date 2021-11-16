@@ -23,6 +23,8 @@ print(
 
 
 def export_file():
+    """Exports the results to two files. One is a list of accounts, the other
+    is a CSV file suitable for import."""
     try:
         with open('iet_config_avt.csv', 'w', encoding='UTF8', newline='') as f:
             writer = csv.writer(f)
@@ -43,6 +45,7 @@ def export_file():
 
 
 def import_file():
+    """If selected, a user can import a TXT file called entitylist.txt for a list."""
     print('Create a TXT file called "entitylist.txt" with one entity listed per line.')
     choice = input('Press enter to load or QUIT to stop: ').upper()
     if choice == 'QUIT':
