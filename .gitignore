@@ -109,3 +109,8 @@ ENV/
 iet_config_avt.csv
 acct_listing_avt.txt
 entitylist.txt
+
+# COMPILER
+*.ico
+_makeapp.bat
+*.exe
