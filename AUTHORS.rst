@@ -5,7 +5,7 @@ Credits
 Development Lead
 ----------------
 
-* David Valade <david@valadeservices.com>
+* David Valade <dvalade@altavistatech.com>
 
 Contributors
 ------------
