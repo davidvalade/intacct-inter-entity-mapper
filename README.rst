@@ -13,7 +13,7 @@ Sage Intacct has great functionality to track due-to and due-from balances. Thin
 
 Many different strategies for creating these accounts abound, but some are excessively complicated in environments with many entities. Sage Intacct once recommended having a different account for every entity's receivable from every other entity, and one payable as well. By that logic, we would need:
 
-	X ( X - 1) ^ 2 accounts, where X = the number of entities.
+	X ( X - 1) * 2 accounts, where X = the number of entities.
 
 That would mean for an environment with 150 entities we would need 44,700 accounts!
 
