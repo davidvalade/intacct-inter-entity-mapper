@@ -107,7 +107,9 @@ ENV/
 
 # Export/Import files
 iet_config_avt.csv
+iet_config_vs.csv
 acct_listing_avt.txt
+acct_listing_vs.txt
 entitylist.txt
 
 # COMPILER
