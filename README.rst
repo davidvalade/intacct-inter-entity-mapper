@@ -4,6 +4,8 @@ Intacct Inter-Entity Account Mapping Helper
 
 A helper to assist with the GL account mappings required by Sage Intacct to track Due-to and Due-from transactions.
 
+Note: a web version of this code [is available online](https://apps.valadeservices.com/inter_entity_mapper).
+
 * Free software: MIT license
 
 Features
